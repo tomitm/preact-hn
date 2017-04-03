@@ -1,5 +1,6 @@
 import {h, Component} from 'preact';
 import LoadingView from '../core/loadingView.js';
+import ListDataError from './error.js';
 import ListItem from './item.js';
 import {ITEMS_PER_PAGE} from './constants.js';
 
@@ -25,8 +26,10 @@ const Pagination = ({data: {page, max, type}}) => {
 }
 
 export default class ListView extends Component {
-  render({data}) {
-    if (!data || data === null) {
+  render({error, data, retryDataHandler}) {
+    if (error) {
+      return <ListDataError retryDataHandler={retryDataHandler} />;
+    } else if (!data || data === null) {
       return <LoadingView />;
     }
 

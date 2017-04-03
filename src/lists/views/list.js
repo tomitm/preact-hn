@@ -8,6 +8,7 @@ export default class ListHome extends Component {
     super(props);
 
     this.handleUUIDChange = this.handleUUIDChange.bind(this);
+    this.retryDataHandler = this.retryDataHandler.bind(this);
   }
 
   handleUUIDChange(uuid) {
@@ -15,6 +16,10 @@ export default class ListHome extends Component {
   }
   componentWillReceiveProps() {
     this.state.uuid = null;
+  }
+
+  retryDataHandler() {
+    console.log('retry data'); 
   }
   
   render({matches: {page=1}, listType}, {uuid}) {

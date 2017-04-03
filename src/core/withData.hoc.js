@@ -8,6 +8,7 @@ export default function withData(WrappedComponent, {fetchDataFunction, propertie
       super(props);
       
       this.state = {
+        error: false,
         data: null
       };
 
@@ -18,6 +19,7 @@ export default function withData(WrappedComponent, {fetchDataFunction, propertie
 
     handlePartialData(partialData) {
       this.setState({
+        error: false,
         data: partialData
       });
     }
@@ -25,14 +27,15 @@ export default function withData(WrappedComponent, {fetchDataFunction, propertie
       if (properties.uuid !== completeData.uuid) {
         this.props.handleUUIDChange(completeData.uuid);
       }
-      //console.log('setting data state', completeData);
       this.setState({
+        error: false,
         data: completeData
       });
     }
     handleErrorData(error) {
-      //console.log('error', error);
-      // TODO: Handle Errors better!
+      this.setState({
+        error: true
+      });
     }
 
     componentWillMount() {
@@ -43,8 +46,8 @@ export default function withData(WrappedComponent, {fetchDataFunction, propertie
       });
     }
 
-    render(props, {data}) {
-      return <WrappedComponent data={data} {...props} />;
+    render(props, state) {
+      return <WrappedComponent {...state} {...props} />;
     }
   }
 }
