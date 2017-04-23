@@ -23,14 +23,24 @@ export default class RoutedView extends Component {
     }
 
     if (load) {
-      load((file) => {
-        timeout && clearTimeout(timeout);        
-        this.setState({
-          child: file.default
-        }, () => {
-          this.lazyLoadedRoutes[path] = file.default;
+      if (typeof load === 'function') {
+        load((file) => {
+          timeout && clearTimeout(timeout);        
+          this.setState({
+            child: file.default
+          }, () => {
+            this.lazyLoadedRoutes[path] = file.default;
+          });
         });
-      });
+      } else {
+        console.log(load);
+        
+        this.setState({
+          child: load
+        }, () => {
+          this.lazyLoadedRoutes[path] = load;
+        });
+      }
     }
   }
   

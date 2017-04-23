@@ -19,8 +19,15 @@ function setRequestResources(resourcesList) {
         js: routeResources.UserHome
       };
     }
-    return routeResources && {
-      js: routeResources.ListHome
+
+    if (routeResources && routeResources.ListHome) {
+      return {
+        js: routeResources.ListHome
+      }  
+    }
+
+    return {
+      js: null
     };
   }
 

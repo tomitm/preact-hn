@@ -4,8 +4,9 @@ import RoutedView from './core/routedView.js';
 import LoadingView from './core/loadingView.js';
 import {LIST_TYPES} from './lists/constants.js';
 
+import ListView from './lists/views/list.js';
+
 const ROUTE_BUNDLE = {
-  list: require('bundle-loader?lazy&name=ListHome!./lists/views/list.js'),
   about: require('bundle-loader?lazy&name=AboutHome!./about/views/about.js'),
   item: require('bundle-loader?lazy&name=ItemHome!./item/views/item.js'),
   user: require('bundle-loader?lazy&name=UserHome!./lists/views/user.js')
@@ -15,60 +16,52 @@ export default function(props) {
   return (
     <Router>
       <RoutedView
-        path='/new'  
-        load={ROUTE_BUNDLE.list}
+        path='/new'
         listType={LIST_TYPES.new}
+        child={ListView}
         {...props}>
-        <LoadingView />
       </RoutedView>
       <RoutedView
-        path='/new/:page'  
-        load={ROUTE_BUNDLE.list}
+        path='/new/:page'
         listType={LIST_TYPES.new}
+        child={ListView}
         {...props}>
-        <LoadingView />
       </RoutedView>
       <RoutedView
-        path='/show'  
-        load={ROUTE_BUNDLE.list}
+        path='/show'
         listType={LIST_TYPES.show}
+        child={ListView}
         {...props}>
-        <LoadingView />
       </RoutedView>
       <RoutedView
         path='/show/:page'  
-        load={ROUTE_BUNDLE.list}
         listType={LIST_TYPES.show}
+        child={ListView}
         {...props}>
-        <LoadingView />
       </RoutedView>
       <RoutedView
         path='/ask'  
-        load={ROUTE_BUNDLE.list}
         listType={LIST_TYPES.ask}
+        child={ListView}
         {...props}>
-        <LoadingView />
       </RoutedView>
       <RoutedView
-        path='/ask/:page'  
-        load={ROUTE_BUNDLE.list}
+        path='/ask/:page'
         listType={LIST_TYPES.ask}
+        child={ListView}
         {...props}>
-        <LoadingView />
       </RoutedView>
       <RoutedView
-        path='/jobs'  
-        load={ROUTE_BUNDLE.list}
+        path='/jobs'
         listType={LIST_TYPES.jobs}
+        child={ListView}
         {...props}>
-        <LoadingView />
       </RoutedView>
       <RoutedView
-        path='/jobs/:page'  
-        load={ROUTE_BUNDLE.list}
+        path='/jobs/:page'
         listType={LIST_TYPES.jobs}
+        child={ListView}
         {...props}>
-        <LoadingView />
       </RoutedView>
       <RoutedView
         path='/about'  
@@ -91,10 +84,9 @@ export default function(props) {
       </RoutedView>
       <RoutedView
         path="/top/:page" default
-        load={ROUTE_BUNDLE.list}
         listType={LIST_TYPES.top}
+        child={ListView}
         {...props}>
-      <LoadingView />
       </RoutedView>
     </Router>
   );

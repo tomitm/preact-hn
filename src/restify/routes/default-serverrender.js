@@ -17,7 +17,8 @@ function defaultRoute(req, res, next) {
 
   if (resources) {
     let linkHeaderValue = '';
-    [resources.js, resources.route.js].forEach((preloadResource) => {
+    const toPush = resources.route && resources.route.js ? [resources.js, resources.route.js] : [resources.js];
+    toPush.forEach((preloadResource) => {
       linkHeaderValue += `<${preloadResource}>; rel=preload; as=script,`;
     });
     res.setHeader('Link', linkHeaderValue);
@@ -74,7 +75,7 @@ function defaultRoute(req, res, next) {
         </div>
         <script>window.seed=${JSON.stringify(data)};</script>
         <script src="${resources.js}"></script>
-        <script src="${resources.route.js}"></script>
+        ${resources.route && resources.route.js ? `<script src="${resources.route.js}"></script>` : ''}
       </body>
     </html>`);
 
